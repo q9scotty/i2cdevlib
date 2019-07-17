@@ -700,8 +700,10 @@ bool I2Cdev::writeWords(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint16
 
 /** Default timeout value for read operations.
  * Set this to 0 to disable timeout detection.
+ *	Was giving compilation error when compiling for an ArduCAM ESP8266 Uno Board - set to 0;  Investigate further...
  */
-uint16_t I2Cdev::readTimeout = I2CDEV_DEFAULT_READ_TIMEOUT;
+//uint16_t I2Cdev::readTimeout = I2CDEV_DEFAULT_READ_TIMEOUT;
+uint16_t I2Cdev::readTimeout = 0;
 
 #if I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
     // I2C library
