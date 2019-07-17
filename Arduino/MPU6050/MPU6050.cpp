@@ -3212,7 +3212,7 @@ void MPU6050::setDMPConfig2(uint8_t config) {
 /**
   @brief      Fully calibrate Gyro from ZERO in about 6-7 Loops 600-700 readings
 */
-void MPU6050::CalibrateGyro(uint8_t Loops = 6) {
+void MPU6050::CalibrateGyro(uint8_t Loops) {
   double kP = 0.3;
   double kI = 90;
   float x;
@@ -3226,13 +3226,13 @@ void MPU6050::CalibrateGyro(uint8_t Loops = 6) {
 /**
   @brief      Fully calibrate Accel from ZERO in about 6-7 Loops 600-700 readings
 */
-void MPU6050::CalibrateAccel_MPU9250(uint8_t Loops = 6) {
+void MPU6050::CalibrateAccel_MPU9250(uint8_t Loops) {
 	CalibrateAccel(Loops,0x77);
 }
-void MPU6050::CalibrateAccel_MPU6500(uint8_t Loops = 6) {
+void MPU6050::CalibrateAccel_MPU6500(uint8_t Loops) {
 	CalibrateAccel(Loops,0x77);
 }
-void MPU6050::CalibrateAccel(uint8_t Loops = 6,uint8_t OffsetSaveAddress = 0x06) {
+void MPU6050::CalibrateAccel(uint8_t Loops = 6,uint8_t OffsetSaveAddress) {
   double kP = 0.15;
   double kI = 8;
   float x;
@@ -3243,7 +3243,7 @@ void MPU6050::CalibrateAccel(uint8_t Loops = 6,uint8_t OffsetSaveAddress = 0x06)
 }
 
 void MPU6050::PID(uint8_t ReadAddress, uint8_t SaveAddress, float kP,float kI, uint8_t Loops) {
-	int16_t Reading, Offset;
+	uint16_t Reading, Offset;
 	int16_t BitZero[3];
 	uint8_t shift;
 	float Error, PTerm, ITerm[3];
@@ -3312,8 +3312,8 @@ void MPU6050::PrintActiveOffsets_MPU6500() {
 	PrintActiveOffsets(0x77);
 }
 
-void MPU6050::PrintActiveOffsets(uint8_t AOffsetRegister = 0x06) {
-	int16_t Data[3];
+void MPU6050::PrintActiveOffsets(uint8_t AOffsetRegister) {
+	uint16_t Data[3];
 	Serial.print(F("\n//                X Accel  Y Accel  Z Accel   X Gyro   Y Gyro   Z Gyro\n//#define OFFSETS "));
 	if(AOffsetRegister == 0x06)	I2Cdev::readWords(devAddr, AOffsetRegister, 3, Data);
 	else {
